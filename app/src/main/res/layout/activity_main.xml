@@ -7,7 +7,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:hint="Enter the topic"/>
+        android:hint="Enter the topic"
+        android:id="@+id/editTextAddTopic"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -15,6 +16,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
-        android:text="Save"/>
+        android:text="Save"
+        android:id="@+id/buttonSave"/>
 
 </LinearLayout>
