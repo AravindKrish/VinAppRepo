@@ -8,7 +8,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:hint="Enter the topic"
-        android:id="@+id/editTextAddTopic"/>
+        android:id="@+id/edittext_addtopic"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -17,6 +17,15 @@
         android:layout_marginTop="16dp"
         android:layout_marginBottom="16dp"
         android:text="Save"
-        android:id="@+id/buttonSave"/>
+        android:id="@+id/button_save"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="16dp"
+        android:layout_marginBottom="16dp"
+        android:text="See Topic List"
+        android:id="@+id/button_seetopiclist"/>
 
 </LinearLayout>

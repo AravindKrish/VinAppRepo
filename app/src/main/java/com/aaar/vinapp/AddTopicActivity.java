@@ -2,12 +2,14 @@ package com.aaar.vinapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.aaar.vinapp.database.Topic;
 import com.aaar.vinapp.database.TopicDao;
@@ -20,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
 
     EditText editTextAddTopic;
     Button buttonSave;
+    Button buttonSeeAllTopis;
     public static final String EXTRA_REPLY = "com.example.android.wordlistsql.REPLY";
     private Topic topic;
     private TopicDao topicDao;
@@ -34,8 +37,9 @@ public class MainActivity extends AppCompatActivity {
         topicDao = vinAppDatabase.topicDao();
 
 
-        editTextAddTopic = (EditText) findViewById(R.id.editTextAddTopic);
-        buttonSave = (Button) findViewById(R.id.buttonSave);
+        editTextAddTopic = (EditText) findViewById(R.id.edittext_addtopic);
+        buttonSave = (Button) findViewById(R.id.button_save);
+        buttonSeeAllTopis = (Button) findViewById(R.id.button_seetopiclist);
 
         buttonSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -43,15 +47,25 @@ public class MainActivity extends AppCompatActivity {
                 topic = new Topic(editTextAddTopic.getText().toString());
                 insert(topic);
 
+
             }
         });
 
-        getTopics();
+        buttonSeeAllTopis.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(MainActivity.this, ShowAllTopicsActivity.class);
+                startActivity(intent);
+
+
+            }
+        });
 
 
     }
 
-    private static class insertAsyncTask extends AsyncTask<Topic, Void, Void> {
+    private class insertAsyncTask extends AsyncTask<Topic, Void, Void> {
 
         private TopicDao mAsyncTaskDao;
 
@@ -64,13 +78,23 @@ public class MainActivity extends AppCompatActivity {
             mAsyncTaskDao.insert(params[0]);
             return null;
         }
+
+        @Override
+        protected void onPostExecute(Void aVoid) {
+            super.onPostExecute(aVoid);
+            //getTopics();
+            Toast.makeText(MainActivity.this, "Topic Added", Toast.LENGTH_SHORT).show();
+            finish();
+
+
+        }
     }
 
     public void insert (Topic topic) {
         new insertAsyncTask(topicDao).execute(topic);
     }
 
-    private static class GetTopicsAsyncTask extends AsyncTask<Void, Void, Void> {
+    private class GetTopicsAsyncTask extends AsyncTask<Void, Void, Void> {
 
         private TopicDao mAsyncTaskDao;
 
@@ -92,7 +116,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void getTopics () {
+    public void getTopics() {
         new GetTopicsAsyncTask(topicDao).execute();
     }
 
