@@ -1,31 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" android:orientation="vertical">
 
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp">
+        
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter topic name"
+            android:id="@+id/ti_edittext_addtopic"/>
+        
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <EditText
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:hint="Add Links"
+    android:id="@+id/edittext_link"
+    android:layout_margin="16dp"/>
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:hint="Add notes"
+        android:id="@+id/edittext_topicdetails"
         android:layout_margin="16dp"
-        android:hint="Enter the topic"
-        android:id="@+id/edittext_addtopic"/>
+        android:maxLines="10"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:text="Save"
-        android:id="@+id/button_save"/>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="16dp"
-        android:layout_marginBottom="16dp"
-        android:text="See Topic List"
-        android:id="@+id/button_seetopiclist"/>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="end|bottom"
+            android:src="@drawable/round_save_white_24"
+            android:layout_margin="16dp"
+            android:id="@+id/fab_save"
+            android:fitsSystemWindows="true"
+            android:windowSoftInputMode="adjustResize"
+            />
+
+    </FrameLayout>
 
 </LinearLayout>
+

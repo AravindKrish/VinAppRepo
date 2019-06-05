@@ -1,4 +1,4 @@
-package com.aaar.vinapp;
+package com.aaar.vinapp.MVVMRefactoring;
 
 import android.app.Activity;
 import android.content.Context;
@@ -11,9 +11,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.aaar.vinapp.database.Topic;
+import com.aaar.vinapp.MVVMRefactoring.DB.TopicNew;
+import com.aaar.vinapp.R;
+import com.aaar.vinapp.ViewTopicActivity;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import androidx.annotation.NonNull;
@@ -25,11 +26,12 @@ import static com.aaar.vinapp.ShowAllTopicsActivity.VIEW_TOPIC_REQUEST_CODE;
 public class TopicViewNewAdapter extends RecyclerView.Adapter<TopicViewNewAdapter.TopicViewHolder> {
 
     private final LayoutInflater mInflater;
-    private List<Topic> mtopicList;
-    private ArrayList<Topic> topiclist;    public String itemremoved;
+    private List<TopicNew> mtopicNewList;
+    //private ArrayList<Topic> topiclist;
+    public String itemremoved;
     public long itemremovedid;
-    TopicViewAdapter.DeleteTopicListener deleteTopicListener;
-    TopicViewAdapter.StarClickListener starClickListener;
+    TopicViewNewAdapter.DeleteTopicListener deleteTopicListener;
+    TopicViewNewAdapter.StarClickListener starClickListener;
     public static final String TOPIC_CLICKED = "Topic Tapped";
     private ImageView starImage;
     private int revisionCount;
@@ -52,19 +54,19 @@ public class TopicViewNewAdapter extends RecyclerView.Adapter<TopicViewNewAdapte
 
     @Override
     public void onBindViewHolder(@NonNull TopicViewHolder topicViewHolder, final int i) {
-        final String currenttopic = topiclist.get(i).getTopic();
-        final Topic currentTopicObject = topiclist.get(i);
-        String revisionDate = topiclist.get(i).getRevision1().toString();
+        final String currenttopic = mtopicNewList.get(i).getTopic();
+        final TopicNew currentTopicObject = mtopicNewList.get(i);
+        String revisionDate = mtopicNewList.get(i).getRevision1().toString();
         String trimmedRevisiondate = revisionDate.substring(0, revisionDate.length() - 12);
-        revisionCount = topiclist.get(i).getCount() + 1;
+        revisionCount = mtopicNewList.get(i).getCount() + 1;
         revisionMessage = "Revision " + revisionCount + " due on " + trimmedRevisiondate;
         starImage = (ImageView) topicViewHolder.itemView.findViewById(R.id.image_star);
         topicViewHolder.topic.setText(currenttopic);
         topicViewHolder.revisionTime.setText(revisionMessage);
-        if (topiclist.get(i).getCount() == 0) {
+        if (mtopicNewList.get(i).getCount() == 0) {
             topicViewHolder.textviewrevisionCount.setText("0");
         } else {
-            topicViewHolder.textviewrevisionCount.setText(Integer.toString(topiclist.get(i).getCount()));
+            topicViewHolder.textviewrevisionCount.setText(Integer.toString(mtopicNewList.get(i).getCount()));
         }
         cardView = topicViewHolder.itemView.findViewById(R.id.cardView_item);
         topicViewHolder.itemView.setOnClickListener(new View.OnClickListener() {
@@ -89,7 +91,7 @@ public class TopicViewNewAdapter extends RecyclerView.Adapter<TopicViewNewAdapte
 
     @Override
     public int getItemCount() {
-        return topiclist.size();
+        return mtopicNewList.size();
     }
 
     public class TopicViewHolder extends RecyclerView.ViewHolder {
@@ -108,20 +110,33 @@ public class TopicViewNewAdapter extends RecyclerView.Adapter<TopicViewNewAdapte
         }
     }
 
-    void setTopiclist(List<Topic>topics){
-        this.topiclist = (ArrayList<Topic>) topics;
+    void setTopiclist(List<TopicNew>topicsNew){
+
+        mtopicNewList = topicsNew;
         notifyDataSetChanged();
 
     }
 
     public void deleteTopic(int position) {
         Log.d("Deletebutton", "deletebutton");
-        itemremoved = topiclist.get(position).getTopic();
-        itemremovedid = topiclist.get(position).getIdentifier();
+        itemremoved = mtopicNewList.get(position).getTopic();
+        itemremovedid = mtopicNewList.get(position).getIdentifier();
         Log.d("ItemRemoved", itemremoved);
-        topiclist.remove(position);
+        mtopicNewList.remove(position);
         notifyItemRemoved(position);
-        notifyItemRangeChanged(position, topiclist.size());
+        notifyItemRangeChanged(position, mtopicNewList.size());
         deleteTopicListener.deleteTopicFromDB(itemremovedid);
     }
+
+    public interface DeleteTopicListener{
+
+        public void deleteTopicFromDB(long topicId);
+
+    }
+
+
+    public interface StarClickListener{
+        public void onStarClick(TopicNew topicNew, int position);
+    }
+
 }

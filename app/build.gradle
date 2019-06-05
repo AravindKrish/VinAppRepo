@@ -6,8 +6,8 @@ android {
         applicationId "com.aaar.vinapp"
         minSdkVersion 24
         targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        versionCode 2
+        versionName "1.1"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
     }
@@ -30,8 +30,18 @@ dependencies {
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.0-alpha4'
     //Updating as per room the failure of kotlin
     def room_version = "2.1.0-alpha04"
+    def archLifecycleVersion = "2.0.0"
 
     implementation "androidx.room:room-runtime:$room_version"
     annotationProcessor "androidx.room:room-compiler:$room_version" // For Kotlin use kapt instead of annotationProcessor
+    implementation 'com.android.support:recyclerview-v7:28.0.0'
+    implementation 'com.google.android.material:material:1.0.0-rc01'
+    implementation 'com.android.support:customtabs:28.0.0'
+    implementation 'com.android.support:coordinatorlayout:28.0.0'
+    implementation "androidx.viewpager:viewpager:1.0.0"
+    implementation 'me.relex:circleindicator:2.1.0'
 
+    // Lifecycle components
+    implementation "androidx.lifecycle:lifecycle-extensions:$archLifecycleVersion"
+    annotationProcessor "androidx.lifecycle:lifecycle-compiler:$archLifecycleVersion"
 }

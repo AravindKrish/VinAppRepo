@@ -1,11 +1,11 @@
-package com.aaar.vinapp;
+package com.aaar.vinapp.MVVMRefactoring;
 
 import android.app.Application;
 import android.os.AsyncTask;
 
-import com.aaar.vinapp.database.Topic;
-import com.aaar.vinapp.database.TopicDao;
-import com.aaar.vinapp.database.VinAppDatabase;
+import com.aaar.vinapp.MVVMRefactoring.DB.TopicNew;
+import com.aaar.vinapp.MVVMRefactoring.DB.TopicNewDao;
+import com.aaar.vinapp.MVVMRefactoring.DB.TopicNewDataBase;
 
 import java.util.List;
 
@@ -13,33 +13,33 @@ import androidx.lifecycle.LiveData;
 
 public class TopicRepository {
 
-    private TopicDao mTopicDao;
-    public LiveData<List<Topic>> mtopicList;
+    private TopicNewDao mTopicNewDao;
+    public LiveData<List<TopicNew>> mtopicList;
 
 
     public TopicRepository(Application application){
 
-        VinAppDatabase db =VinAppDatabase.getDatabase(application);
-        mTopicDao = db.topicDao();
-        mtopicList = (LiveData<List<Topic>>) mTopicDao.getAllTopics();
+        TopicNewDataBase db = TopicNewDataBase.getDatabase(application);
+        mTopicNewDao = db.topicNewDao();
+        mtopicList = (LiveData<List<TopicNew>>) mTopicNewDao.getAllTopics();
     }
 
-    public LiveData<List<Topic>> getAllTopics(){
+    public LiveData<List<TopicNew>> getAllTopics(){
         return mtopicList;
     }
 
-    public void insert (Topic topic){
-        new insertAsyncTask(mTopicDao).execute(topic);
+    public void insert (TopicNew topicNew){
+        new insertAsyncTask(mTopicNewDao).execute(topicNew);
     }
 
-    private static class insertAsyncTask extends AsyncTask <Topic, Void, Void>{
+    private static class insertAsyncTask extends AsyncTask<TopicNew, Void, Void> {
 
-        private TopicDao mInserAsyncTaskDao;
+        private TopicNewDao mInserAsyncTaskDao;
 
-        insertAsyncTask (TopicDao dao){mInserAsyncTaskDao = dao;}
+        insertAsyncTask (TopicNewDao dao){mInserAsyncTaskDao = dao;}
 
         @Override
-        protected Void doInBackground(Topic... topics) {
+        protected Void doInBackground(TopicNew... topics) {
             mInserAsyncTaskDao.insert(topics[0]);
             return null;
         }

@@ -1,4 +1,4 @@
-package com.aaar.vinapp;
+package com.aaar.vinapp.MVVMRefactoring;
 
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -6,21 +6,23 @@ import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 
+import com.aaar.vinapp.R;
+
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.RecyclerView;
 
-public class SwipeToDeleteCallBack extends ItemTouchHelper.SimpleCallback {
+public class SwipeToDeleteNewCallBack extends ItemTouchHelper.SimpleCallback {
 
-    private TopicViewAdapter mtopicViewAdapter;
+    private TopicViewNewAdapter mtopicViewNewAdapter;
     private Drawable icon;
     private final ColorDrawable background;
 
-    public SwipeToDeleteCallBack(TopicViewAdapter topicViewAdapter) {
+    public SwipeToDeleteNewCallBack(TopicViewNewAdapter topicViewNewAdapter) {
         super(0,ItemTouchHelper.LEFT);
-        mtopicViewAdapter = topicViewAdapter;
-        icon = ContextCompat.getDrawable(mtopicViewAdapter.context, R.drawable.ic_delete_white_36);
+        mtopicViewNewAdapter = topicViewNewAdapter;
+        icon = ContextCompat.getDrawable(mtopicViewNewAdapter.context, R.drawable.ic_delete_white_36);
         background = new ColorDrawable(Color.RED);
     }
 
@@ -33,7 +35,7 @@ public class SwipeToDeleteCallBack extends ItemTouchHelper.SimpleCallback {
     public void onSwiped(@NonNull RecyclerView.ViewHolder viewHolder, int direction) {
 
         int position = viewHolder.getAdapterPosition();
-        mtopicViewAdapter.deleteTopic(position);
+        mtopicViewNewAdapter.deleteTopic(position);
     }
 
     @Override

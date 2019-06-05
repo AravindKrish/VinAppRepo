@@ -1,8 +1,9 @@
-package com.aaar.vinapp;
+package com.aaar.vinapp.ViewModel;
 
 import android.app.Application;
 
-import com.aaar.vinapp.database.Topic;
+import com.aaar.vinapp.MVVMRefactoring.DB.TopicNew;
+import com.aaar.vinapp.MVVMRefactoring.TopicRepository;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ import androidx.lifecycle.LiveData;
 public class TopicViewModel extends AndroidViewModel {
 
   private TopicRepository mTopicRepository;
-  private LiveData<List<Topic>> mtopicList;
+  private LiveData<List<TopicNew>> mtopicList;
 
     public TopicViewModel(Application application) {
         super(application);
@@ -20,7 +21,7 @@ public class TopicViewModel extends AndroidViewModel {
         mtopicList = mTopicRepository.getAllTopics();
     }
 
-    public LiveData<List<Topic>> getAllTopics() { return mtopicList; }
+    public LiveData<List<TopicNew>> getAllTopics() { return mtopicList; }
 
-    public void insert(Topic topic) { mTopicRepository.insert(topic); }
+    public void insert(TopicNew topicNew) { mTopicRepository.insert(topicNew); }
 }

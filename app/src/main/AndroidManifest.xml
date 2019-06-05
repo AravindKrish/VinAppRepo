@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.aaar.vinapp"
     xmlns:tools="http://schemas.android.com/tools">
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
 
@@ -11,14 +12,33 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
+        android:windowSoftInputMode="adjustResize"
         tools:replace="android:appComponentFactory"
         android:appComponentFactory="whateverString">
-        <activity android:name=".MainActivity">
+        <activity android:name=".AddTopicActivity">
+
+        </activity>
+        <activity
+            android:name=".ShowAllTopicsActivity"
+            android:theme="@style/AppTheme"
+            android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+
         </activity>
+<activity android:name=".ScreenSlidePagerActivity">
+</activity>
+        <activity android:name=".EditTopicActivity">
+
+        </activity>
+
+        <activity android:name=".ViewTopicActivity">
+        </activity>
+
+        <receiver android:name=".AlarmReceiver"  android:exported="true">
+        </receiver>
     </application>
 
 

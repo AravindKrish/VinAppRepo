@@ -5,8 +5,10 @@ import android.content.Context;
 import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
+import androidx.room.TypeConverters;
 
 @Database(entities = {Topic.class}, version = 1, exportSchema = false)
+@TypeConverters(DateTypeConverter.class)
 public abstract class VinAppDatabase extends RoomDatabase {
     public abstract TopicDao topicDao();
 
